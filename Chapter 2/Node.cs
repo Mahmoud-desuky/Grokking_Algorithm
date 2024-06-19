@@ -13,8 +13,8 @@ namespace Grokking_Algorithm.Chapter_2
             public Node(int val)
             {
                 Val = val;
-            //pointer
-            Next = null;
+                //pointer
+               Next = null;
             }
     }
 }

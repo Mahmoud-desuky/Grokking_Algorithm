@@ -8,16 +8,17 @@ namespace Grokking_Algorithm
         {
 
             var linked = new LinkedList();
-            linked.addback(1);
-            linked.addback(2);
-            linked.addback(3);
+            linked.AddBack(1);
+            linked.AddBack(2);
+            linked.AddBack(3);
             linked.Display();
             
             Console.WriteLine(linked.count());
-            linked.addback(5);
+            linked.AddBack(5);
             Console.WriteLine( linked.count());
             linked.addPos(1, 20);
             linked.Display();
+            linked.DisplayReversed();
         }
     }
 }

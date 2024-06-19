@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,14 +15,14 @@ namespace Grokking_Algorithm.Chapter_2
         {
             head = null;
         }
-        public void addback(int data)
+        public void AddBack(int data)
         {
+            // new Node
             var newnode = new Node(data);
             if (head == null)
                 head = newnode;
-            else  // 
+            else  
             {
-                // the same of add in back
                 var temp = head;
                 while (temp.Next != null)
                 {
@@ -30,12 +31,10 @@ namespace Grokking_Algorithm.Chapter_2
                 temp.Next = newnode;
             }
         }
-
         public void Display()
         {
-
             var temp = head;
-                int cnt = 0;
+            int cnt = 0;
             while (temp != null)
             {
                    
@@ -44,6 +43,17 @@ namespace Grokking_Algorithm.Chapter_2
             }
             Console.WriteLine();
         }
+        public void DisplayReversed()
+        {
+            PrintRecursion(head);
+        }
+        public void PrintRecursion(Node temp)
+        {
+            if (temp == null)
+                return;
+            PrintRecursion(temp.Next);
+            Console.Write(temp.Val + " ");
+        }
         public int count()
              {
                 var temp = head;
@@ -51,13 +61,11 @@ namespace Grokking_Algorithm.Chapter_2
                 while (temp != null)
                 {
                     cnt++;
-                   // Console.Write(temp.Val + " ");
                     temp = temp.Next;
                 }
                 return cnt;
             }
-        // add in pos
-        public void addPos(int pos,int data)
+        public void AddPos(int pos,int data)
         {
             int cnt = count();
             if(cnt<pos)
@@ -69,15 +77,12 @@ namespace Grokking_Algorithm.Chapter_2
             var pr = head;
             var nx = head;
              Node newnode=new Node(data);
-            //  1 2 3 4 
             while (nx != null&&cnt<pos)
             {
                 cnt++;
-                // Console.Write(temp.Val + " ");
                 pr = nx;
                 nx = nx.Next;
             }
-            // the same of add int front
             if(nx==pr)
             {
                 head = newnode;
@@ -87,10 +92,14 @@ namespace Grokking_Algorithm.Chapter_2
             pr.Next = newnode;
             newnode.Next = nx;
         }
+        public void insertFront(int data)
+        {
+            var newnode=new Node(data);
+            newnode.Next = head;
+            head = newnode;
+        }
         public bool Find(int Data) {
             var temp = head;
-          
-            
             while(temp.Next.Next != null)
             {
                 if (temp.Val==Data)
@@ -99,6 +108,70 @@ namespace Grokking_Algorithm.Chapter_2
             }
             temp.Next = null;
             return false;
+        }
+        public int Findindex(int data)
+        {
+            var temp = head;
+            int cnt = 0;
+            while (temp!=null)
+            {
+                if(temp.Val==data)
+                    return cnt;
+                temp = temp.Next;
+                cnt++;
+            }
+            return -1;
+        }
+        public bool isEmpty()
+        {
+            return head == null;
+        }
+        public void RemovePos(int idx)
+        {
+            if(idx==0&&head!=null)
+            {
+                head=head.Next;
+                return;
+            }
+            int cnt = 0;
+            var temp = head;
+            var previous = temp;
+            while (temp!=null)
+            {
+                if(cnt==idx)
+                {
+                    previous.Next = temp.Next;
+                    return;
+                }
+                previous = temp;
+                temp = temp.Next;
+            }
+            Console.WriteLine("index Not Found");
+        }
+        public void RemoveFirst()
+        {
+            if (head == null)
+            {
+                Console.WriteLine("Is Empty");
+                return;
+            }
+            head = head.Next;
+        }
+        public void RemoveLast()
+        {
+            if (head == null)
+            {
+                Console.WriteLine("Is Empty");
+                return;
+            }
+            if (count() == 1)
+                head = null;
+            var temp = head;
+            while(temp.Next.Next!=null) {
+                temp=temp.Next;
+            }
+            temp.Next = null;
+
         }
 
 
