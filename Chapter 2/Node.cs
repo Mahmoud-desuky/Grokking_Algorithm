@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 
 namespace Grokking_Algorithm.Chapter_2
 {
-    public class Node
+    public class Node<T>
     {
-        public int Val { get; set; }
-          public Node Next;
-            public Node(int val)
-            {
-                Val = val;
-                //pointer
-               Next = null;
-            }
+        public T Val { get; set; }
+        public Node<T> Next { get; set; }
+
+        public Node(T val)
+        {
+            Val = val;
+            // Pointer
+            Next = null;
+        }
     }
 }

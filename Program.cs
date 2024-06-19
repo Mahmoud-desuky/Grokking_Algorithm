@@ -7,18 +7,27 @@ namespace Grokking_Algorithm
         static void Main(string[] args)
         {
 
-            var linked = new LinkedList();
+           
+            
+            SLinkedList<int> linked = new SLinkedList<int>();
             linked.AddBack(1);
             linked.AddBack(2);
             linked.AddBack(3);
             linked.Display();
             
-            Console.WriteLine(linked.count());
+            Console.WriteLine(linked.Count());
             linked.AddBack(5);
-            Console.WriteLine( linked.count());
-            linked.addPos(1, 20);
+            Console.WriteLine( linked.Count());
+            linked.AddPos(1, 20);
             linked.Display();
-            linked.DisplayReversed();
+           // linked.DisplayReversed();
+           linked.ReverseItrative();
+            linked.Display();
+            //
+            linked.ReverseItrative();
+            linked.Display();
+            
+            
         }
     }
 }

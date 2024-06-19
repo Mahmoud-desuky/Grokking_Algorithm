@@ -1,179 +1,213 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Grokking_Algorithm.Chapter_2
 {
-    public class LinkedList
+    public class SLinkedList<T>
     {
-        private Node head;
-        public LinkedList()
+        private Node<T> head;
+
+        public SLinkedList()
         {
             head = null;
         }
-        public void AddBack(int data)
+        public void AddBack(T data)
         {
             // new Node
-            var newnode = new Node(data);
+            Node<T> newNode = new Node<T>(data);
             if (head == null)
-                head = newnode;
-            else  
+            {
+                head = newNode;
+            }
+            else
             {
                 var temp = head;
                 while (temp.Next != null)
                 {
                     temp = temp.Next;
                 }
-                temp.Next = newnode;
+                temp.Next = newNode;
             }
         }
         public void Display()
         {
             var temp = head;
-            int cnt = 0;
             while (temp != null)
             {
-                   
-                Console.Write(temp.Val+ " ");
+                Console.Write(temp.Val + " ");
                 temp = temp.Next;
             }
             Console.WriteLine();
         }
+
         public void DisplayReversed()
         {
             PrintRecursion(head);
         }
-        public void PrintRecursion(Node temp)
+
+        private void PrintRecursion(Node<T> temp)
         {
             if (temp == null)
                 return;
+
             PrintRecursion(temp.Next);
             Console.Write(temp.Val + " ");
         }
-        public int count()
-             {
-                var temp = head;
-                int cnt = 0;
-                while (temp != null)
-                {
-                    cnt++;
-                    temp = temp.Next;
-                }
-                return cnt;
-            }
-        public void AddPos(int pos,int data)
+
+        public int Count()
         {
-            int cnt = count();
-            if(cnt<pos)
+            Node<T> temp = head;
+            int count = 0;
+            while (temp != null)
             {
-                Console.WriteLine("out of scope");
+                count++;
+                temp = temp.Next;
+            }
+            return count;
+        }
+
+        public void AddPos(int pos, T data)
+        {
+            int count = Count();
+            if (count < pos)
+            {
+                Console.WriteLine("Out of scope");
                 return;
             }
-             cnt = 1;
-            var pr = head;
-            var nx = head;
-             Node newnode=new Node(data);
-            while (nx != null&&cnt<pos)
+
+            int currentPosition = 1;
+            Node<T> prev = head;
+            Node<T> curr = head;
+            Node<T> newNode = new Node<T>(data);
+
+            while (curr != null && currentPosition < pos)
             {
-                cnt++;
-                pr = nx;
-                nx = nx.Next;
+                currentPosition++;
+                prev = curr;
+                curr = curr.Next;
             }
-            if(nx==pr)
+
+            if (curr == prev)
             {
-                head = newnode;
-                head.Next = pr;
+                head = newNode;
+                head.Next = prev;
                 return;
             }
-            pr.Next = newnode;
-            newnode.Next = nx;
+
+            prev.Next = newNode;
+            newNode.Next = curr;
         }
-        public void insertFront(int data)
+
+        public void InsertFront(T data)
         {
-            var newnode=new Node(data);
-            newnode.Next = head;
-            head = newnode;
+            var newNode = new Node<T>(data);
+            newNode.Next = head;
+            head = newNode;
         }
-        public bool Find(int Data) {
-            var temp = head;
-            while(temp.Next.Next != null)
+
+        public bool Find(T data)
+        {
+            Node<T> temp = head;
+            while (temp != null)
             {
-                if (temp.Val==Data)
+                if (temp.Val.Equals(data))
                     return true;
                 temp = temp.Next;
             }
-            temp.Next = null;
             return false;
         }
-        public int Findindex(int data)
+
+        public int FindIndex(T data)
         {
-            var temp = head;
-            int cnt = 0;
-            while (temp!=null)
+            Node<T> temp = head;
+            int count = 0;
+            while (temp != null)
             {
-                if(temp.Val==data)
-                    return cnt;
+                if (temp.Val.Equals(data))
+                    return count;
                 temp = temp.Next;
-                cnt++;
+                count++;
             }
             return -1;
         }
-        public bool isEmpty()
+
+        public bool IsEmpty()
         {
             return head == null;
         }
+
         public void RemovePos(int idx)
         {
-            if(idx==0&&head!=null)
+            if (idx == 0 && head != null)
             {
-                head=head.Next;
+                head = head.Next;
                 return;
             }
-            int cnt = 0;
+
+            int count = 0;
             var temp = head;
-            var previous = temp;
-            while (temp!=null)
+            var prev = temp;
+
+            while (temp != null)
             {
-                if(cnt==idx)
+                if (count == idx)
                 {
-                    previous.Next = temp.Next;
+                    prev.Next = temp.Next;
                     return;
                 }
-                previous = temp;
+                prev = temp;
                 temp = temp.Next;
+                count++;
             }
-            Console.WriteLine("index Not Found");
+
+            Console.WriteLine("Index not found");
         }
+
         public void RemoveFirst()
         {
             if (head == null)
             {
-                Console.WriteLine("Is Empty");
+                Console.WriteLine("Is empty");
                 return;
             }
             head = head.Next;
         }
+
         public void RemoveLast()
         {
             if (head == null)
             {
-                Console.WriteLine("Is Empty");
+                Console.WriteLine("Is empty");
                 return;
             }
-            if (count() == 1)
+
+            if (Count() == 1)
+            {
                 head = null;
-            var temp = head;
-            while(temp.Next.Next!=null) {
-                temp=temp.Next;
+                return;
+            }
+
+            Node<T> temp = head;
+            while (temp.Next.Next != null)
+            {
+                temp = temp.Next;
             }
             temp.Next = null;
-
         }
 
+        public void ReverseItrative()
+        {
+            Node<T> prev = null;
+            Node<T> current = head;
 
+            while (current != null)
+            {
+                Node<T> next = current.Next;
+                current.Next = prev;
+                prev = current;
+                current = next;
+            }
+
+            head = prev;
+        }
     }
 }
