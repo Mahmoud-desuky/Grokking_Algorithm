@@ -1,4 +1,5 @@
 ﻿using Grokking_Algorithm.Chapter_2;
+using Grokking_Algorithm.Double_Linked_List;
 
 namespace Grokking_Algorithm
 {
@@ -6,27 +7,17 @@ namespace Grokking_Algorithm
     {
         static void Main(string[] args)
         {
+            
+          DLinkedList<int> list = new DLinkedList<int>();
+            list.AddBack(5);
+            list.AddBack(6);
+            list.AddBack(7);
+            list.Display();
+            list.AddPosition(0, 10);
+            list.AddPosition(2, 20);
 
-           
-            
-            SLinkedList<int> linked = new SLinkedList<int>();
-            linked.AddBack(1);
-            linked.AddBack(2);
-            linked.AddBack(3);
-            linked.Display();
-            
-            Console.WriteLine(linked.Count());
-            linked.AddBack(5);
-            Console.WriteLine( linked.Count());
-            linked.AddPos(1, 20);
-            linked.Display();
-           // linked.DisplayReversed();
-           linked.ReverseItrative();
-            linked.Display();
-            //
-            linked.ReverseItrative();
-            linked.Display();
-            
+
+            list.Display(); 
             
         }
     }
